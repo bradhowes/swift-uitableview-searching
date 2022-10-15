@@ -17,7 +17,7 @@ jobs:
       - name: Build
         run: |
           xcrun xctrace list devices
-          xcodebuild build-for-testing -scheme "Searching" -destination "platform=iOS Simulator,name=iPhone SE (2nd generation)"
+          xcodebuild build-for-testing -scheme "Searching" -destination "platform=iOS Simulator,name=iPhone SE (2nd generation)" -project Searching.xcodeproj
       - name: Test
         run: |
-          xcodebuild test-without-building -scheme "Searching" -destination "platform=iOS Simulator,name=iPhone SE (2nd generation)"
+          xcodebuild test-without-building -scheme "Searching" -destination "platform=iOS Simulator,name=iPhone SE (2nd generation)" -project Searching.xcodeproj
