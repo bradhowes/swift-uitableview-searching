@@ -10,14 +10,17 @@ jobs:
   build:
     name: Build and Test default scheme using any available iPhone simulator
     runs-on: macos-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Build
-        run: |
-          xcrun xctrace list devices
-          xcodebuild build-for-testing -scheme "Searching" -destination "platform=iOS Simulator,name=iPhone SE (2nd generation)" -project Searching.xcodeproj
-      - name: Test
-        run: |
-          xcodebuild test-without-building -scheme "Searching" -destination "platform=iOS Simulator,name=iPhone SE (2nd generation)" -project Searching.xcodeproj
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Build, test, and code coverage
+      run: make
+    - name: Create Coverage Badge
+      uses: schneegans/dynamic-badges-action@v1.1.0
+      with:
+        auth: ${{ secrets.GIST_UPDATE }}
+        gistID: 000000000
+        filename: Searching-coverage.json
+        label: Coverage
+        message: ${{ env.PERCENTAGE }}
+        color: success
