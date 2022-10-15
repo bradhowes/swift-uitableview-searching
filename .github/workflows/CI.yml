@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Build
         run: |
+          xcrun xctrace list devices
           xcodebuild build-for-testing -scheme "Searching" -destination "platform=iOS Simulator,name=iPhone SE (3rd generation)"
       - name: Test
         run: |
