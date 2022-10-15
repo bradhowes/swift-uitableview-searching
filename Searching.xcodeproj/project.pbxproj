@@ -54,6 +54,7 @@
 		BD3596ED28FAC3CB00A56D52 /* ArrayTransitionStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTransitionStep.swift; sourceTree = "<group>"; };
 		BD3596F128FB659300A56D52 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BD3596F228FB69DB00A56D52 /* Demo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Demo.gif; sourceTree = "<group>"; };
+		BD3596F428FB7AC000A56D52 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +85,7 @@
 		BD3596B128F8829B00A56D52 = {
 			isa = PBXGroup;
 			children = (
+				BD3596F428FB7AC000A56D52 /* Makefile */,
 				BD3596F128FB659300A56D52 /* README.md */,
 				BD3596F228FB69DB00A56D52 /* Demo.gif */,
 				BD3596BC28F8829B00A56D52 /* Searching */,
