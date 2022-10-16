@@ -153,15 +153,17 @@ extension ViewController {
       let from = visibleIndices
       block()
 
-      for action in ArrayTransitionStep.changes(from: from, to: visibleIndices) {
-        switch action {
-        case .added(let index): tableView.insertRows(at: [.init(item: index, section: 0)], with: .automatic)
-        case .deleted(let index): tableView.deleteRows(at: [.init(item: index, section: 0)], with: .automatic)
-        case .moved(let old, let new): tableView.moveRow(at: .init(item: old, section: 0),
-                                                         to: .init(item: new, section: 0))
-        }
+      let changes = ArrayTransitions.changes(from: from, to: visibleIndices)
+      if !changes.added.isEmpty {
+        tableView.insertRows(at: changes.added.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+      }
+      if !changes.deleted.isEmpty {
+        tableView.deleteRows(at: changes.deleted.map { IndexPath(row: $0, section: 0) }, with: .automatic)
       }
     }) { _ in
+
+      // Always keep the selected index selected if it is visible.
+      tableView.selectRow(at: self.selectedIndexPath, animated: true, scrollPosition: .none)
       completionBlock?()
     }
   }

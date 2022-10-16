@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD10282E28FC0429006C4E4E /* ArrayTransitionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD10282D28FC0429006C4E4E /* ArrayTransitionsTests.swift */; };
+		BD10283128FC140A006C4E4E /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = BD10283028FC140A006C4E4E /* Tagged */; };
 		BD3596BE28F8829B00A56D52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596BD28F8829B00A56D52 /* AppDelegate.swift */; };
 		BD3596C028F8829B00A56D52 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596BF28F8829B00A56D52 /* SceneDelegate.swift */; };
 		BD3596C228F8829B00A56D52 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596C128F8829B00A56D52 /* ViewController.swift */; };
@@ -16,7 +18,7 @@
 		BD3596D528F8829C00A56D52 /* SearchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596D428F8829C00A56D52 /* SearchingTests.swift */; };
 		BD3596DF28F8829C00A56D52 /* SearchingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596DE28F8829C00A56D52 /* SearchingUITests.swift */; };
 		BD3596E128F8829C00A56D52 /* SearchingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596E028F8829C00A56D52 /* SearchingUITestsLaunchTests.swift */; };
-		BD3596EE28FAC3CB00A56D52 /* ArrayTransitionStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596ED28FAC3CB00A56D52 /* ArrayTransitionStep.swift */; };
+		BD3596EE28FAC3CB00A56D52 /* ArrayTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596ED28FAC3CB00A56D52 /* ArrayTransitions.swift */; };
 		BD3596F328FB69DB00A56D52 /* Demo.gif in Resources */ = {isa = PBXBuildFile; fileRef = BD3596F228FB69DB00A56D52 /* Demo.gif */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BD10282D28FC0429006C4E4E /* ArrayTransitionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayTransitionsTests.swift; sourceTree = "<group>"; };
 		BD3596BA28F8829B00A56D52 /* Searching.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Searching.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD3596BD28F8829B00A56D52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD3596BF28F8829B00A56D52 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,7 +54,7 @@
 		BD3596DA28F8829C00A56D52 /* SearchingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SearchingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD3596DE28F8829C00A56D52 /* SearchingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingUITests.swift; sourceTree = "<group>"; };
 		BD3596E028F8829C00A56D52 /* SearchingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		BD3596ED28FAC3CB00A56D52 /* ArrayTransitionStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTransitionStep.swift; sourceTree = "<group>"; };
+		BD3596ED28FAC3CB00A56D52 /* ArrayTransitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTransitions.swift; sourceTree = "<group>"; };
 		BD3596F128FB659300A56D52 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BD3596F228FB69DB00A56D52 /* Demo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Demo.gif; sourceTree = "<group>"; };
 		BD3596F428FB7AC000A56D52 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -62,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD10283128FC140A006C4E4E /* Tagged in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,7 +115,7 @@
 				BD3596BD28F8829B00A56D52 /* AppDelegate.swift */,
 				BD3596BF28F8829B00A56D52 /* SceneDelegate.swift */,
 				BD3596C128F8829B00A56D52 /* ViewController.swift */,
-				BD3596ED28FAC3CB00A56D52 /* ArrayTransitionStep.swift */,
+				BD3596ED28FAC3CB00A56D52 /* ArrayTransitions.swift */,
 				BD3596C328F8829B00A56D52 /* Main.storyboard */,
 				BD3596C628F8829C00A56D52 /* Assets.xcassets */,
 				BD3596C828F8829C00A56D52 /* LaunchScreen.storyboard */,
@@ -124,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				BD3596D428F8829C00A56D52 /* SearchingTests.swift */,
+				BD10282D28FC0429006C4E4E /* ArrayTransitionsTests.swift */,
 			);
 			path = SearchingTests;
 			sourceTree = "<group>";
@@ -153,6 +158,9 @@
 			dependencies = (
 			);
 			name = Searching;
+			packageProductDependencies = (
+				BD10283028FC140A006C4E4E /* Tagged */,
+			);
 			productName = Searching;
 			productReference = BD3596BA28F8829B00A56D52 /* Searching.app */;
 			productType = "com.apple.product-type.application";
@@ -225,6 +233,9 @@
 				Base,
 			);
 			mainGroup = BD3596B128F8829B00A56D52;
+			packageReferences = (
+				BD10282F28FC140A006C4E4E /* XCRemoteSwiftPackageReference "swift-tagged" */,
+			);
 			productRefGroup = BD3596BB28F8829B00A56D52 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -270,7 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD3596C228F8829B00A56D52 /* ViewController.swift in Sources */,
-				BD3596EE28FAC3CB00A56D52 /* ArrayTransitionStep.swift in Sources */,
+				BD3596EE28FAC3CB00A56D52 /* ArrayTransitions.swift in Sources */,
 				BD3596BE28F8829B00A56D52 /* AppDelegate.swift in Sources */,
 				BD3596C028F8829B00A56D52 /* SceneDelegate.swift in Sources */,
 			);
@@ -280,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD10282E28FC0429006C4E4E /* ArrayTransitionsTests.swift in Sources */,
 				BD3596D528F8829C00A56D52 /* SearchingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,6 +626,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BD10282F28FC140A006C4E4E /* XCRemoteSwiftPackageReference "swift-tagged" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-tagged";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BD10283028FC140A006C4E4E /* Tagged */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD10282F28FC140A006C4E4E /* XCRemoteSwiftPackageReference "swift-tagged" */;
+			productName = Tagged;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BD3596B228F8829B00A56D52 /* Project object */;
 }
