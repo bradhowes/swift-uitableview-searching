@@ -11,6 +11,9 @@ final class SearchingUITests: XCTestCase {
   var itemsTable: XCUIElement!
 
   override func setUpWithError() throws {
+#if !targetEnvironment(macCatalyst)
+    XCUIDevice.shared.orientation = .portrait
+#endif
     continueAfterFailure = false
     app = XCUIApplication()
     app.launch()

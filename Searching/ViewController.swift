@@ -29,6 +29,8 @@ class ViewController: UIViewController {
     "The Darjeeling Limited"
   ]
 
+  private var contentIndices: Range<Int> { 0..<contents.count }
+
   @IBOutlet private weak var tableView: UITableView!
   @IBOutlet private weak var searchButton: UIBarButtonItem!
   @IBOutlet private weak var searchBar: UISearchBar!
@@ -65,7 +67,7 @@ extension ViewController {
     tableView.dataSource = self
     tableView.delegate = self
     searchBar.delegate = self
-    visibleIndices = Array(0..<contents.count)
+    visibleIndices = Array(contentIndices)
     UserDefaults.standard.register(defaults: [Self.selectedKey: 0])
   }
 
@@ -181,7 +183,7 @@ extension ViewController {
    */
   private func updateViewForSearch(term: String, completionBlock: (()->())? = nil) {
     updateTableRows(block: {
-      visibleIndices = term.isEmpty ? Array(0..<contents.count) : contents.enumerated()
+      visibleIndices = term.isEmpty ? Array(contentIndices) : contents.enumerated()
         .filter { $0.1.lowercased().contains(term) }
         .map { $0.0 }
     }, completionBlock: completionBlock)

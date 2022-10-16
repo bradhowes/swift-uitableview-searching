@@ -8,12 +8,12 @@ import Tagged
  Loosely based on https://lukaszielinski.de/blog/posts/2019/02/03/calculating-the-deltas-for-performbatchupdates/
  which does handle row movement.
  */
-struct ArrayTransitions {
+struct ArrayTransitions: Equatable {
 
-  /// Collection of view indices that were added.
+  /// Collection of view indices that were added. Note that this is not guaranteed to be in a sorted order.
   let added: [Int]
 
-  /// Collection of view indices that were removed.
+  /// Collection of view indices that were removed. Note that this is not guaranteed to be in a sorted order.
   let deleted: [Int]
 
   /**
@@ -23,11 +23,27 @@ struct ArrayTransitions {
    Often this is not the case, including when one applies a filter to see only those data elements that match the
    filter like in a text search.
 
+   Note that the input arrays must not contain duplicates, and the ordering of the two arrays must honor the same
+   ordering principle (ascending or descending). Also, the resulting `added` and `deleted` arrays contain values
+   suitable for use as an IndexPath row value: they indicate how the `toViewIndices` transformed from the
+   `fromViewIndices`, and so the values are *not* of the same conceptual type as the input values, which can be thought
+   of as data elements and not row indices.
+
    - parameter from: the starting collection state
    - parameter to: the final collection state
    - returns: ArrayTransitions instance with the additions and deletions
    */
+  @inlinable
   static func changes(from fromViewIndices: [Int], to toViewIndices: [Int]) -> ArrayTransitions {
+    return changes2(from: fromViewIndices, to: toViewIndices)
+  }
+
+  // Use internal types to make sure we are working with the right index since the two are both Int-based.
+  private typealias ValueIndex = Tagged<(ArrayTransitions, valueIndex: ()), Int>
+  private typealias ViewIndex = Tagged<(ArrayTransitions, viewIndex: ()), Int>
+
+  @inlinable
+  static func changes1(from fromViewIndices: [Int], to toViewIndices: [Int]) -> ArrayTransitions {
 
     // Generate mappings from values to array indices. For very large collections this could get expensive so a future
     // optimization would be to store the toMap for future use as a fromMap. Alternatively, I am pretty sure there is
@@ -40,26 +56,56 @@ struct ArrayTransitions {
 
     // Identify the elements that need to be deleted. As a side-effect, this will remove values from `toReverseMap`
     // that should remain.
-    let deleted = DeletedArray(rawValue: fromReverseMap.compactMap { (valueIndex, viewIndex) in
+    let deleted: [Int] = fromReverseMap.compactMap { (valueIndex, viewIndex) in
       if toReverseMap[valueIndex] != nil {
         toReverseMap.removeValue(forKey: valueIndex)
         return nil
       }
-      return viewIndex
-    })
+      return viewIndex.rawValue
+    }
 
-    return .init(added: .init(rawValue: toReverseMap.values.map { $0 }), deleted: deleted)
+    return .init(added: toReverseMap.values.map { $0.rawValue }, deleted: deleted)
   }
 
-  private init(added: AddedArray, deleted: DeletedArray) {
-    self.added = added.map { $0.rawValue }
-    self.deleted = deleted.map { $0.rawValue }
+  @inlinable
+  static func changes2(from fromViewIndices: [Int], to toViewIndices: [Int]) -> ArrayTransitions {
+
+    // Alternative version that does not rely on the reverse mapping. Timings show this to be ~10x faster.
+
+    var fromIndex = 0
+    var toIndex = 0
+
+    var added = [Int]()
+    var deleted = [Int]()
+
+    // Handle case where both index values are valid
+    while fromIndex < fromViewIndices.count && toIndex < toViewIndices.count {
+      let fromValue = fromViewIndices[fromIndex]
+      let toValue = toViewIndices[toIndex]
+
+      if fromValue < toValue {
+        deleted.append(fromIndex)
+        fromIndex += 1
+      } else if fromValue > toValue {
+        added.append(toIndex)
+        toIndex += 1
+      } else {
+        fromIndex += 1
+        toIndex += 1
+      }
+    }
+
+    // Remaining fromViewIndices must be deleted since they are not in the toViewIndices collection
+    deleted.append(contentsOf: fromIndex..<fromViewIndices.count)
+
+    // Remaining toViewIndices must be added since hey were not in the fromViewIndices collection
+    added.append(contentsOf: toIndex..<toViewIndices.count)
+
+    return .init(added: added, deleted: deleted)
   }
 
-  // Use internal types to make sure we are working with the right index since the two are both Int-based.
-  private typealias ValueIndex = Tagged<(ArrayTransitions, valueIndex: ()), Int>
-  private typealias ViewIndex = Tagged<(ArrayTransitions, viewIndex: ()), Int>
-  // Additional collection types to help ensure we don't mix the additions and deletions.
-  private typealias AddedArray = Tagged<(ArrayTransitions, addedArray: ()), [ViewIndex]>
-  private typealias DeletedArray = Tagged<(ArrayTransitions, deletedArray: ()), [ViewIndex]>
+  private init(added: [Int], deleted: [Int]) {
+    self.added = added
+    self.deleted = deleted
+  }
 }

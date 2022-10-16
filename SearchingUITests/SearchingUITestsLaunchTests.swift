@@ -3,14 +3,14 @@ import XCTest
 final class SearchingUITestsLaunchTests: XCTestCase {
 
   override class var runsForEachTargetApplicationUIConfiguration: Bool {
-    true
+    false
   }
 
   override func setUpWithError() throws {
     continueAfterFailure = false
   }
 
-  func testLaunch() throws {
+  func skip_testLaunch() throws {
     let app = XCUIApplication()
     app.launch()
 
