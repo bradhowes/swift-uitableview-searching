@@ -93,11 +93,20 @@ final class ArrayTransitionsTests: XCTestCase {
     XCTAssertEqual(changes.deleted.sorted(), [1, 2])
   }
 
-  func testPerformanceExample() throws {
-    // This is an example of a performance test case.
+  func testLargeCollectionSizeDeletionPerformance() throws {
+    let from = [Int](0..<100_000)
+    let to = [1, 3, 19, 99_998, 99_999]
     self.measure {
-      // Put the code you want to measure the time of here.
+      _ = ArrayTransitions.changes(from: from, to: to)
     }
   }
   
+  func testLargeCollectionSizeInsertionPerformance() throws {
+    let from = [1, 3, 19, 99_998, 99_999]
+    let to = [Int](0..<100_000)
+    self.measure {
+      _ = ArrayTransitions.changes(from: from, to: to)
+    }
+  }
+
 }

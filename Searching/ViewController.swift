@@ -55,6 +55,11 @@ extension ViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.accessibilityIdentifier = "mainView"
+    searchBar.accessibilityIdentifier = "searchBar"
+    searchBar.searchTextField.accessibilityIdentifier = "searchTextField"
+    tableView.accessibilityIdentifier = "itemsTableView"
+
     originalSearchBarHeight = searchBarHeightConstraint.constant
     searchBarHeightConstraint.constant = 0
     tableView.dataSource = self
