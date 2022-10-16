@@ -1,8 +1,8 @@
 SCHEME = Searching
-PLATFORM_IOS = iOS Simulator,name=iPhone SE (2nd generation)
+PLATFORM_IOS = iOS Simulator,name=iPhone SE (3rd generation)
 DEST = -project Searching.xcodeproj -scheme "$(SCHEME)" -destination platform="$(PLATFORM_IOS)"
 
-default: build
+default: coverage
 
 build: clean
 	xcodebuild build $(DEST)
