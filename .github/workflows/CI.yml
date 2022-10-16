@@ -19,8 +19,8 @@ jobs:
       uses: schneegans/dynamic-badges-action@v1.1.0
       with:
         auth: ${{ secrets.GIST_UPDATE }}
-        gistID: 000000000
-        filename: Searching-coverage.json
+        gistID: 516275ba2dc5960da0d20b0db4f6a58c
+        filename: swift-uitabeleview-searching-coverage.json
         label: Coverage
         message: ${{ env.PERCENTAGE }}
         color: success
