@@ -1,5 +1,4 @@
-name: iOS starter workflow
-
+name: CI
 on:
   push:
     branches: [ "main" ]
