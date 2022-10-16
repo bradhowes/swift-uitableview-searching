@@ -114,7 +114,7 @@ extension ViewController: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int { 1 }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    section == 0 ? visibleIndices.count : 0
+    visibleIndices.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -155,7 +155,6 @@ extension ViewController {
    - parameter completionBlock: the block to run after the table view has been updated
    */
   private func updateTableRows(block: () -> (), completionBlock: (()->())? = nil) {
-    guard let tableView = self.tableView else { return }
     tableView.performBatchUpdates({
       let from = visibleIndices
       block()
@@ -170,7 +169,7 @@ extension ViewController {
     }) { _ in
 
       // Always keep the selected index selected if it is visible.
-      tableView.selectRow(at: self.selectedIndexPath, animated: true, scrollPosition: .none)
+      self.tableView.selectRow(at: self.selectedIndexPath, animated: true, scrollPosition: .none)
       completionBlock?()
     }
   }
