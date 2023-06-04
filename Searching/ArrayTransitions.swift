@@ -35,50 +35,11 @@ struct ArrayTransitions: Equatable {
    */
   @inlinable
   static func changes(from fromViewIndices: [Int], to toViewIndices: [Int]) -> ArrayTransitions {
-    return changes2(from: fromViewIndices, to: toViewIndices)
-  }
-
-  // Use internal types to make sure we are working with the right index since the two are both Int-based.
-  private typealias ValueIndex = Tagged<(ArrayTransitions, valueIndex: ()), Int>
-  private typealias ViewIndex = Tagged<(ArrayTransitions, viewIndex: ()), Int>
-
-  @inlinable
-  static func changes1(from fromViewIndices: [Int], to toViewIndices: [Int]) -> ArrayTransitions {
-
-    // Generate mappings from values to array indices. For very large collections this could get expensive so a future
-    // optimization would be to store the toMap for future use as a fromMap. Alternatively, I am pretty sure there is
-    // an algorithm that can be used to do this without the reverse maps, by walking two iterators up the two integer
-    // collections and comparing the results. This would work if the underlying order of the items is always increasing.
-    let fromReverseMap = [ValueIndex: ViewIndex](uniqueKeysWithValues: fromViewIndices.enumerated()
-      .map { (.init(rawValue: $0.1), .init(rawValue: $0.0)) } )
-    var toReverseMap = [ValueIndex: ViewIndex](uniqueKeysWithValues: toViewIndices.enumerated()
-      .map { (.init(rawValue: $0.1), .init(rawValue: $0.0)) } )
-
-    // Identify the elements that need to be deleted. As a side-effect, this will remove values from `toReverseMap`
-    // that should remain.
-    let deleted: [Int] = fromReverseMap.compactMap { (valueIndex, viewIndex) in
-      if toReverseMap[valueIndex] != nil {
-        toReverseMap.removeValue(forKey: valueIndex)
-        return nil
-      }
-      return viewIndex.rawValue
-    }
-
-    return .init(added: toReverseMap.values.map { $0.rawValue }, deleted: deleted)
-  }
-
-  @inlinable
-  static func changes2(from fromViewIndices: [Int], to toViewIndices: [Int]) -> ArrayTransitions {
-
-    // Alternative version that does not rely on the reverse mapping. Timings show this to be ~10x faster.
-
     var fromIndex = 0
     var toIndex = 0
-
     var added = [Int]()
     var deleted = [Int]()
 
-    // Handle case where both index values are valid
     while fromIndex < fromViewIndices.count && toIndex < toViewIndices.count {
       let fromValue = fromViewIndices[fromIndex]
       let toValue = toViewIndices[toIndex]
