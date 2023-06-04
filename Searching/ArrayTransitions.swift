@@ -4,9 +4,6 @@ import Tagged
 /**
  Provides a way to determine the additions and deletions necessary to transform one collection of view indices to
  another as long as rows are only added or removed (not moved).
-
- Loosely based on https://lukaszielinski.de/blog/posts/2019/02/03/calculating-the-deltas-for-performbatchupdates/
- which does handle row movement.
  */
 struct ArrayTransitions: Equatable {
 
