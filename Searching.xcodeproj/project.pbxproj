@@ -17,7 +17,6 @@
 		BD3596CA28F8829C00A56D52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD3596C828F8829C00A56D52 /* LaunchScreen.storyboard */; };
 		BD3596D528F8829C00A56D52 /* SearchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596D428F8829C00A56D52 /* SearchingTests.swift */; };
 		BD3596DF28F8829C00A56D52 /* SearchingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596DE28F8829C00A56D52 /* SearchingUITests.swift */; };
-		BD3596E128F8829C00A56D52 /* SearchingUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596E028F8829C00A56D52 /* SearchingUITestsLaunchTests.swift */; };
 		BD3596EE28FAC3CB00A56D52 /* ArrayTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3596ED28FAC3CB00A56D52 /* ArrayTransitions.swift */; };
 		BD3596F328FB69DB00A56D52 /* Demo.gif in Resources */ = {isa = PBXBuildFile; fileRef = BD3596F228FB69DB00A56D52 /* Demo.gif */; };
 /* End PBXBuildFile section */
@@ -53,7 +52,6 @@
 		BD3596D428F8829C00A56D52 /* SearchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingTests.swift; sourceTree = "<group>"; };
 		BD3596DA28F8829C00A56D52 /* SearchingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SearchingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD3596DE28F8829C00A56D52 /* SearchingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingUITests.swift; sourceTree = "<group>"; };
-		BD3596E028F8829C00A56D52 /* SearchingUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BD3596ED28FAC3CB00A56D52 /* ArrayTransitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTransitions.swift; sourceTree = "<group>"; };
 		BD3596F128FB659300A56D52 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BD3596F228FB69DB00A56D52 /* Demo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Demo.gif; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				BD3596DE28F8829C00A56D52 /* SearchingUITests.swift */,
-				BD3596E028F8829C00A56D52 /* SearchingUITestsLaunchTests.swift */,
 			);
 			path = SearchingUITests;
 			sourceTree = "<group>";
@@ -301,7 +298,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD3596DF28F8829C00A56D52 /* SearchingUITests.swift in Sources */,
-				BD3596E128F8829C00A56D52 /* SearchingUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
