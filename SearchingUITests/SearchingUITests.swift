@@ -34,13 +34,7 @@ final class SearchingUITests: XCTestCase {
     searchButton.tap()
 
     // Make sure that first entry is showing
-    let keyboard = app.keyboards.element(boundBy: 0)
-    XCTAssertTrue(keyboard.waitForExistence(timeout: 30))
-    keyboard.keys["b"].tap()
-    keyboard.keys["l"].tap()
-    keyboard.keys["o"].tap()
-
-    // Clear the text field for future queries.
+    textField.typeText("blow")
     textField.buttons.element(boundBy: 0).tap()
 
     // Select the first row
@@ -50,19 +44,16 @@ final class SearchingUITests: XCTestCase {
     XCTAssertTrue(firstRow.isHittable)
   }
 
-  func showSearchBar() -> XCUIElement {
+  func showSearchBar() {
     searchButton.tap()
-    let keyboard = app.keyboards.element(boundBy: 0)
-    XCTAssertTrue(keyboard.waitForExistence(timeout: 30))
-    return keyboard
+    XCTAssertTrue(searchBar.isHittable)
   }
 
   func testSearchBarAppearsAndDisappears() throws {
     // Initially searchBar is hidden
     XCTAssertFalse(searchBar.isHittable)
 
-    _ = showSearchBar()
-    XCTAssertTrue(searchBar.isHittable)
+    showSearchBar()
 
     // We cannot directly compare the two cells. Comparing their frames should be good enough.
     let firstRow = itemsTable.cells.element(boundBy: 0)
@@ -83,8 +74,8 @@ final class SearchingUITests: XCTestCase {
   }
 
   func testSearchTextFiltersRows() throws {
-    let keyboard = showSearchBar()
-    keyboard.keys["j"].tap()
+    showSearchBar()
+    textField.typeText("j")
 
     // Should only have 1 entry showing
     XCTAssertEqual(itemsTable.cells.count, 1)
@@ -94,19 +85,19 @@ final class SearchingUITests: XCTestCase {
     tdl.tap()
     XCTAssertTrue(tdl.isSelected)
 
-    searchButton.tap()
-    keyboard.keys["j"].tap()
+    showSearchBar()
+    textField.typeText("jj")
 
     // Should have nothing showing
     XCTAssertEqual(itemsTable.cells.count, 0)
+    textField.buttons.element(boundBy: 0).tap()
 
     // Delete last "j" should reveal previous entry
-    keyboard.keys["delete"].tap()
+    textField.typeText("j")
     XCTAssertEqual(itemsTable.cells.count, 1)
     XCTAssertTrue(itemsTable.cells.element(boundBy: 0).isSelected)
 
-    // Delete sole "J" should reveal everything
-    keyboard.keys["delete"].tap()
+    textField.buttons.element(boundBy: 0).tap()
     XCTAssertEqual(itemsTable.cells.count, 29)
 
     searchButton.tap()
@@ -115,11 +106,10 @@ final class SearchingUITests: XCTestCase {
   }
 
   func testTextFieldClearTextButtonWorks() throws {
-    let keyboard = showSearchBar()
+    showSearchBar()
 
     // Tap "J", select sole item, tap "j"
-    keyboard.keys["j"].tap()
-    keyboard.keys["j"].tap()
+    textField.typeText("jj")
 
     // Should have nothing showing
     XCTAssertEqual(itemsTable.cells.count, 0)
@@ -139,10 +129,8 @@ final class SearchingUITests: XCTestCase {
   }
 
   func testShowSelectedItem() throws {
-    let keyboard = showSearchBar()
-    keyboard.keys["u"].tap()
-    keyboard.keys["n"].tap()
-    keyboard.keys["b"].tap()
+    showSearchBar()
+    textField.typeText("unb")
     XCTAssertEqual(itemsTable.cells.count, 1)
     let tulob = itemsTable.cells.containing(.staticText, identifier: "The Unbearable Lightness of Being").element
     tulob.tap()
