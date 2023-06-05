@@ -138,4 +138,13 @@ final class SearchingUITests: XCTestCase {
     XCTAssertTrue(tulob.isSelected)
     XCTAssertTrue(tulob.isHittable)
   }
+
+  func testPressingDoneButtonEndsSearch() throws {
+    showSearchBar()
+    // let keyboard = app.keyboards.element(boundBy: 0)
+    // guard keyboard.waitForExistence(timeout: 10) else { return }
+    textField.typeText("abc")
+    app/*@START_MENU_TOKEN@*/.buttons["Done"]/*[[".keyboards",".buttons[\"done\"]",".buttons[\"Done\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
+    XCTAssertFalse(searchBar.isHittable)
+  }
 }

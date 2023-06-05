@@ -180,23 +180,22 @@ private extension ViewController {
    - parameter completionBlock: the block to run after the table view has been updated
    */
   func updateTableRows(block: () -> (), completionBlock: (()->())? = nil) {
-    guard let tableView = self.tableView else { return }
     tableView.performBatchUpdates({
       let from = visibleIndices
       block()
 
       let changes = ArrayTransitions.changes(from: from, to: visibleIndices)
       if !changes.added.isEmpty {
-        tableView.insertRows(at: changes.added.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+        self.tableView.insertRows(at: changes.added.map { IndexPath(row: $0, section: 0) }, with: .automatic)
       }
       if !changes.deleted.isEmpty {
-        tableView.deleteRows(at: changes.deleted.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+        self.tableView.deleteRows(at: changes.deleted.map { IndexPath(row: $0, section: 0) }, with: .automatic)
       }
     }) { _ in
 
       // The selected content row might have reappeared so we need to make sure that it is selected in the table
       // view.
-      tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
+      self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
       completionBlock?()
     }
   }
