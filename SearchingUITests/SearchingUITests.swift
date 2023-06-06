@@ -107,22 +107,11 @@ final class SearchingUITests: XCTestCase {
 
   func testTextFieldClearTextButtonWorks() throws {
     showSearchBar()
-
-    // Tap "J", select sole item, tap "j"
     textField.typeText("jj")
-
-    // Should have nothing showing
     XCTAssertEqual(itemsTable.cells.count, 0)
-
-    // Clear the text field
     textField.buttons.element(boundBy: 0).tap()
-
-    // Should have everything showing.
     XCTAssertEqual(itemsTable.cells.count, 29)
-
-    // Dismiss the searchBar. We should be showing the selection from above.
     searchButton.tap()
-
     let firstRow = itemsTable.cells.containing(.staticText, identifier: "Blowfish").element
     XCTAssertTrue(firstRow.isHittable)
     XCTAssertTrue(firstRow.isSelected)
