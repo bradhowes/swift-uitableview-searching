@@ -9,3 +9,6 @@ a search field and to update the contents without having to invoke `reloadData()
 tests and UI tests.
 
 ![](Demo.gif)
+
+The code uses `UITableViewDiffableDataSource` to do the tricky part of managing view state. Earlier version that did
+not handle sections, did it the old-school way by adjusting the table view inside a `performBatchUpdates` call.
