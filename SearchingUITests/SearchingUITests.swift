@@ -33,7 +33,7 @@ final class SearchingUITests: XCTestCase {
     searchButton.tap()
 
     // Make sure that first entry is showing
-    textField.typeText("blow")
+    textField.typeText("malice")
     textField.buttons.element(boundBy: 0).tap()
 
     // Select the first row
