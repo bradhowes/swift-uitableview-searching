@@ -38,7 +38,7 @@ final class SearchingUITests: XCTestCase {
     textField.buttons.element(boundBy: 0).tap()
 
     // Select the first row
-    let firstRow = itemsTable.cells.containing(.staticText, identifier: "Blowfish").element
+    let firstRow = itemsTable.cells.containing(.staticText, identifier: "Absence of Malice").element
     firstRow.tap()
     XCTAssertTrue(firstRow.isSelected)
     XCTAssertTrue(firstRow.isHittable)
@@ -57,7 +57,7 @@ final class SearchingUITests: XCTestCase {
 
     // We cannot directly compare the two cells. Comparing their frames should be good enough.
     let firstRow = itemsTable.cells.element(boundBy: 0)
-    let testingRow = itemsTable.cells.containing(.staticText, identifier: "Blowfish").element
+    let testingRow = itemsTable.cells.containing(.staticText, identifier: "Absence of Malice").element
     XCTAssertEqual(firstRow.frame, testingRow.frame)
 
     firstRow.tap()
@@ -75,7 +75,7 @@ final class SearchingUITests: XCTestCase {
 
   func testSearchTextFiltersRows() throws {
     showSearchBar()
-    textField.typeText("j")
+    textField.typeText("je")
 
     // Should only have 1 entry showing
     XCTAssertEqual(itemsTable.cells.count, 1)
@@ -93,12 +93,12 @@ final class SearchingUITests: XCTestCase {
     textField.buttons.element(boundBy: 0).tap()
 
     // Delete last "j" should reveal previous entry
-    textField.typeText("j")
+    textField.typeText("je")
     XCTAssertEqual(itemsTable.cells.count, 1)
     XCTAssertTrue(itemsTable.cells.element(boundBy: 0).isSelected)
 
     textField.buttons.element(boundBy: 0).tap()
-    XCTAssertEqual(itemsTable.cells.count, 29)
+    XCTAssertEqual(itemsTable.cells.count, 111)
 
     searchButton.tap()
     XCTAssertTrue(tdl.isSelected)
@@ -110,9 +110,9 @@ final class SearchingUITests: XCTestCase {
     textField.typeText("jj")
     XCTAssertEqual(itemsTable.cells.count, 0)
     textField.buttons.element(boundBy: 0).tap()
-    XCTAssertEqual(itemsTable.cells.count, 29)
+    XCTAssertEqual(itemsTable.cells.count, 111)
     searchButton.tap()
-    let firstRow = itemsTable.cells.containing(.staticText, identifier: "Blowfish").element
+    let firstRow = itemsTable.cells.containing(.staticText, identifier: "Absence of Malice").element
     XCTAssertTrue(firstRow.isHittable)
     XCTAssertTrue(firstRow.isSelected)
   }
