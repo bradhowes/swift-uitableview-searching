@@ -33,8 +33,7 @@ enum Section: UInt32, CaseIterable {
 
   /// Obtain the label to show in the table view for the section
   var label: String {
-    guard self != .Other else { return "#" }
-    return String((UnicodeScalar(self.rawValue + ascii_A_unicodeScalar)!))
+    self == .Other ? "#" : String((UnicodeScalar(self.rawValue + ascii_A_unicodeScalar)!))
   }
 
   /**
@@ -51,6 +50,15 @@ enum Section: UInt32, CaseIterable {
     }
     return .init(rawValue: first - ascii_A_unicodeScalar) ?? .Other
   }
+}
+
+extension Section: Equatable {
+  static func == (lhs: Section, rhs: Section) -> Bool { lhs.rawValue == rhs.rawValue }
+
+}
+
+extension Section: Comparable {
+  static func < (lhs: Section, rhs: Section) -> Bool { lhs.rawValue < rhs.rawValue }
 }
 
 private let ascii_A_unicodeScalar: UInt32 = UnicodeScalar(UInt8(ascii: "A")).value

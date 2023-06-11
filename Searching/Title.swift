@@ -26,6 +26,7 @@ struct Title : Comparable, Hashable {
 
 /// Collection of all of the titles that are shown in the table.
 let allTitles: [Title] = [
+  "12 Monkeys",
   "Absence of Malice",
   "The Adventures of Baron von Munchhausen",
   "Alien",

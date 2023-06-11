@@ -47,5 +47,5 @@ func partitionTitles(_ titles: [Title]) -> [TableSection] {
     } else {
       partialResult.append(.init(title: title))
     }
-  })
+  }).sorted()
 }

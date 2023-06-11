@@ -12,3 +12,9 @@ struct TableSection {
 
   mutating func append(title: Title) { titles.append(title) }
 }
+
+extension TableSection: Comparable {
+  static func < (lhs: TableSection, rhs: TableSection) -> Bool {
+    lhs.section < rhs.section
+  }
+}

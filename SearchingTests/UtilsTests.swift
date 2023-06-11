@@ -56,7 +56,7 @@ final class UtilsTests: XCTestCase {
 
   func testPartitionTitles() throws {
     let sections = partitionTitles(allTitles)
-    XCTAssertEqual(sections.count, 26)
+    XCTAssertEqual(sections.count, 27)
     XCTAssertEqual(sections[0].titles.count, 7)
     for index in 0..<26 {
       let section = Section(rawValue: UInt32(index))

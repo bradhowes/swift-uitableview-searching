@@ -97,7 +97,7 @@ final class SearchingUITests: XCTestCase {
     XCTAssertTrue(itemsTable.cells.element(boundBy: 0).isSelected)
 
     textField.buttons.element(boundBy: 0).tap()
-    XCTAssertEqual(itemsTable.cells.count, 116)
+    XCTAssertEqual(itemsTable.cells.count, 117)
 
     searchButton.tap()
     XCTAssertTrue(tdl.isSelected)
@@ -109,7 +109,7 @@ final class SearchingUITests: XCTestCase {
     textField.typeText("jj")
     XCTAssertEqual(itemsTable.cells.count, 0)
     textField.buttons.element(boundBy: 0).tap()
-    XCTAssertEqual(itemsTable.cells.count, 116)
+    XCTAssertEqual(itemsTable.cells.count, 117)
     searchButton.tap()
     let firstRow = itemsTable.cells.containing(.staticText, identifier: "Absence of Malice").element
     XCTAssertTrue(firstRow.isHittable)
