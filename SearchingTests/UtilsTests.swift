@@ -55,12 +55,12 @@ final class UtilsTests: XCTestCase {
   }
 
   func testPartitionTitles() throws {
-    let sections = partitionTitles(titles)
+    let sections = partitionTitles(allTitles)
     XCTAssertEqual(sections.count, 26)
-    XCTAssertEqual(sections[0].count, 7)
+    XCTAssertEqual(sections[0].titles.count, 7)
     for index in 0..<26 {
       let section = Section(rawValue: UInt32(index))
-      XCTAssertTrue(sections[index].map { titles[$0] } .allSatisfy { $0.section == section })
+      XCTAssertTrue(sections[index].titles.allSatisfy { $0.section == section })
     }
   }
 }

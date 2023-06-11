@@ -1,3 +1,6 @@
+/**
+ A collection of values that describes the section in a table.
+ */
 struct TableSection {
   let section: Section
   var titles: [Title]

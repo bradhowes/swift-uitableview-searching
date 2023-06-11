@@ -26,8 +26,7 @@ final class SearchingUITests: XCTestCase {
     selectFirstRow()
   }
 
-  override func tearDownWithError() throws {
-  }
+  override func tearDownWithError() throws {}
 
   func selectFirstRow() {
     // Bring up search bar
@@ -98,7 +97,7 @@ final class SearchingUITests: XCTestCase {
     XCTAssertTrue(itemsTable.cells.element(boundBy: 0).isSelected)
 
     textField.buttons.element(boundBy: 0).tap()
-    XCTAssertEqual(itemsTable.cells.count, 111)
+    XCTAssertEqual(itemsTable.cells.count, 116)
 
     searchButton.tap()
     XCTAssertTrue(tdl.isSelected)
@@ -110,7 +109,7 @@ final class SearchingUITests: XCTestCase {
     textField.typeText("jj")
     XCTAssertEqual(itemsTable.cells.count, 0)
     textField.buttons.element(boundBy: 0).tap()
-    XCTAssertEqual(itemsTable.cells.count, 111)
+    XCTAssertEqual(itemsTable.cells.count, 116)
     searchButton.tap()
     let firstRow = itemsTable.cells.containing(.staticText, identifier: "Absence of Malice").element
     XCTAssertTrue(firstRow.isHittable)

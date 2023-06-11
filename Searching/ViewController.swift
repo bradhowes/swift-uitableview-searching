@@ -5,17 +5,19 @@ class ViewController: UIViewController {
 
   /// The index of the contents entry that is selected. Note that this always returns a valid index (default is 0).
   private var selectedTitleIndex: Int {
-    get { min(UserDefaults.standard.integer(forKey: Self.selectedKey), titles.count - 1) }
+    get { min(UserDefaults.standard.integer(forKey: Self.selectedKey), allTitles.count - 1) }
     set { UserDefaults.standard.set(newValue, forKey: Self.selectedKey) }
   }
 
   /// Obtain an IndexPath for the selected row. This may be None if the selected row is not visible.
   private var selectedIndexPath: IndexPath? {
-    dataSource.indexPath(for: titles[self.selectedTitleIndex])
+    dataSource.indexPath(for: allTitles[self.selectedTitleIndex])
   }
 
   /// True if the searchBar is visible
   private var isSearching: Bool { searchBarHeightConstraint.constant != 0 }
+
+  /// Custom diffable data source
   private var dataSource: DataSource!
 
   @IBOutlet private weak var tableView: UITableView!
@@ -121,7 +123,7 @@ extension ViewController: UITableViewDelegate {
    - parameter indexPath: the coordinates of the item that was selected
    */
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    selectedTitleIndex = dataSource.itemIdentifier(for: indexPath)?.identifier ?? 0
+    selectedTitleIndex = dataSource.itemIdentifier(for: indexPath)?.index ?? 0
     if isSearching {
       toggleSearch(self.searchButton)
     }
@@ -171,7 +173,7 @@ private extension ViewController {
    - parameter completionBlock: the block to run after the table view has been updated
    */
   func updateViewForSearch(term: String, completionBlock: (()->())? = nil) {
-    let source = term.isEmpty ? titles : (titles.filter { $0.sortable.value.contains(term.uppercased()) })
+    let source = term.isEmpty ? allTitles : (allTitles.filter { $0.sortable.value.contains(term.uppercased()) })
     let visibleIndicesBySection = partitionTitles(source)
 
     var snapshot = NSDiffableDataSourceSnapshot<Section, Title>()

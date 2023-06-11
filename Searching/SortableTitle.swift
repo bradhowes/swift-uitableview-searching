@@ -1,3 +1,6 @@
+/**
+ A title that has been modified to be sortable and searchable.
+ */
 struct SortableTitle : Comparable {
   let value: String
 

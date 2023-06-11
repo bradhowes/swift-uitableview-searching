@@ -1,3 +1,7 @@
+/**
+ Enumeration for all of the sections. There is one section for each letter of the English alphabet + one for those
+ titles whose first character is something other than a letter.
+ */
 enum Section: UInt32, CaseIterable {
   case A = 0
   case B
@@ -27,11 +31,18 @@ enum Section: UInt32, CaseIterable {
   case Z
   case Other
 
+  /// Obtain the label to show in the table view for the section
   var label: String {
-    guard self != .Other else { return "?" }
+    guard self != .Other else { return "#" }
     return String((UnicodeScalar(self.rawValue + ascii_A_unicodeScalar)!))
   }
 
+  /**
+   Obtain the Section enum that the given title will appear under.
+
+   - parameter title: a SortableTitle to query
+   - returns: the Section enum the title falls under
+   */
   static func locate(title: SortableTitle) -> Section {
     guard let first = title.value.unicodeScalars.first?.value,
           first >= ascii_A_unicodeScalar,

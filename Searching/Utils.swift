@@ -1,12 +1,26 @@
 import Foundation
 
+/**
+ Obtain a 'sortable' representation of a string:
+ * strips all whitespace values from start and end of string
+ * moves all characters to uppercase for searching
 
+ - parameter value: the value to use
+ - returns: sortable representation
+ */
 func sortable(from value: String) -> String {
   value.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 }
 
 private let skippedArticles = Set(["A", "An", "The"].map { sortable(from: $0) })
 
+/**
+ Obtain a sortable title. This uses `sortable` to transform the input, and it drops the first word of the title if
+ the first word is in the `skippedArticles` set.
+
+ - parameter title: the original title
+ - returns: a sortable representation
+ */
 func sortableTitle(from title: String) -> String {
   let title = sortable(from: title)
   let words = title.split(separator: " ").map { String($0) }
@@ -20,49 +34,18 @@ func sortableTitle(from title: String) -> String {
   return words.dropFirst().joined(separator: " ")
 }
 
+/**
+ Partition a list of `Title` entities into a collection of `TableSection` entities based on their section values.
+
+ - parameter titles: the collection of `Title` entities to partition
+ - returns: the collection of `TableSection` that was generated
+ */
 func partitionTitles(_ titles: [Title]) -> [TableSection] {
   titles.reduce(into: [TableSection](), { partialResult, title in
-    guard
-      partialResult.last?.section == title.section
-    else {
-      partialResult.append(.init(title: title))
-      return
-    }
-    partialResult[partialResult.count - 1].append(title: title)
-  })
-}
-
-func calculateArrayChanges(from fromIndices: [Int], to toIndices: [Int]) -> (added: IndexSet,
-                                                                             removed: IndexSet,
-                                                                             common: IndexSet) {
-  var fromIndex = 0
-  var toIndex = 0
-  var added: IndexSet = .init()
-  var removed: IndexSet = .init()
-  var common: IndexSet = .init()
-
-  while fromIndex < fromIndices.count && toIndex < toIndices.count {
-    let fromValue = fromIndices[fromIndex]
-    let toValue = toIndices[toIndex]
-
-    if fromValue < toValue {
-      removed.insert(fromIndex)
-      fromIndex += 1
-    } else if fromValue > toValue {
-      added.insert(toIndex)
-      toIndex += 1
+    if partialResult.last?.section == title.section {
+      partialResult[partialResult.count - 1].append(title: title)
     } else {
-      common.insert(fromIndex)
-      fromIndex += 1
-      toIndex += 1
+      partialResult.append(.init(title: title))
     }
-  }
-
-  // Remaining fromViewIndices must be deleted since they are not in the toViewIndices collection
-  removed.insert(integersIn: fromIndex..<fromIndices.count)
-
-  // Remaining toViewIndices must be added since hey were not in the fromViewIndices collection
-  added.insert(integersIn: toIndex..<toIndices.count)
-
-  return (added: added, removed: removed, common: common)
+  })
 }
