@@ -41,11 +41,15 @@ func sortableTitle(from title: String) -> String {
  - returns: the collection of `TableSection` that was generated
  */
 func partitionTitles(_ titles: [Title]) -> [TableSection] {
-  titles.reduce(into: [TableSection](), { partialResult, title in
-    if partialResult.last?.section == title.section {
-      partialResult[partialResult.count - 1].append(title: title)
+  titles.reduce(into: [[Title]](), { partialResult, title in
+
+    // Combine titles with same section into an array, then create a TableSection instance for each array and finally
+    // order the instances by their section values.
+    if partialResult.last?.last?.section == title.section {
+      partialResult[partialResult.count - 1].append(title)
     } else {
-      partialResult.append(.init(title: title))
+      partialResult.append(.init(arrayLiteral: title))
     }
-  }).sorted()
+  }).map { .init(section: $0[0].section, titles: $0) }
+    .sorted()
 }

@@ -43,7 +43,7 @@ enum Section: UInt32, CaseIterable {
    - returns: the Section enum the title falls under
    */
   static func locate(title: SortableTitle) -> Section {
-    guard let first = title.value.unicodeScalars.first?.value,
+    guard let first = title.sortable.unicodeScalars.first?.value,
           first >= ascii_A_unicodeScalar,
           first <= ascii_Z_unicodeScalar else {
       return .Other
@@ -54,7 +54,6 @@ enum Section: UInt32, CaseIterable {
 
 extension Section: Equatable {
   static func == (lhs: Section, rhs: Section) -> Bool { lhs.rawValue == rhs.rawValue }
-
 }
 
 extension Section: Comparable {

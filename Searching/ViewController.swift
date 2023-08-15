@@ -70,7 +70,7 @@ extension ViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    if let selectedIndexPath = selectedIndexPath {
+    if let selectedIndexPath {
       self.tableView.scrollToRow(at: selectedIndexPath, at: .none, animated: false)
     }
   }
@@ -173,8 +173,8 @@ private extension ViewController {
    - parameter completionBlock: the block to run after the table view has been updated
    */
   func updateViewForSearch(term: String, completionBlock: (()->())? = nil) {
-    let source = term.isEmpty ? allTitles : (allTitles.filter { $0.sortable.value.contains(term.uppercased()) })
-    let visibleIndicesBySection = partitionTitles(source)
+    let titles = term.isEmpty ? allTitles : (allTitles.filter { $0.matches(term.uppercased()) })
+    let visibleIndicesBySection = partitionTitles(titles)
 
     var snapshot = NSDiffableDataSourceSnapshot<Section, Title>()
     snapshot.appendSections(visibleIndicesBySection.map { $0.section })
