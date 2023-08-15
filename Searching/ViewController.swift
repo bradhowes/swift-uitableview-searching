@@ -64,7 +64,7 @@ extension ViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    updateViewForSearch(term: "")
+    updateViewContents(term: "")
     tableView.selectRow(at: selectedIndexPath, animated: false, scrollPosition: .none)
   }
 
@@ -100,7 +100,7 @@ extension ViewController {
       // Put away the keyboard
       self.searchBar.resignFirstResponder()
       // Stop filtering the items and then scroll to the selected one.
-      updateViewForSearch(term: "") {
+      updateViewContents(term: "") {
         self.tableView.scrollToNearestSelectedRow(at: .none, animated: false)
       }
     }
@@ -149,8 +149,7 @@ extension ViewController: UISearchBarDelegate {
    - parameter searchBar: the search bar that is active
    */
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-    // Reuse the last search term if present
-    updateViewForSearch(term: searchBar.text?.lowercased() ?? "")
+    updateViewContents(term: searchBar.searchText )
   }
 
   /**
@@ -160,26 +159,26 @@ extension ViewController: UISearchBarDelegate {
    - parameter searchText: the new search term
    */
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    updateViewForSearch(term: searchText.lowercased())
+    updateViewContents(term: searchText.lowercased())
   }
 }
 
 private extension ViewController {
 
   /**
-   Revise the visibleIndices to only show the items that match the given search term.
+   Revise the view to only show the items that match the given search term.
 
    - parameter term: the string to look for in the contents entries
    - parameter completionBlock: the block to run after the table view has been updated
    */
-  func updateViewForSearch(term: String, completionBlock: (()->())? = nil) {
+  func updateViewContents(term: String, completionBlock: (()->())? = nil) {
     let titles = term.isEmpty ? allTitles : (allTitles.filter { $0.matches(term.uppercased()) })
-    let visibleIndicesBySection = partitionTitles(titles)
+    let tableSections = partitionTitles(titles)
 
     var snapshot = NSDiffableDataSourceSnapshot<Section, Title>()
-    snapshot.appendSections(visibleIndicesBySection.map { $0.section })
+    snapshot.appendSections(tableSections.map { $0.section })
 
-    for section in visibleIndicesBySection {
+    for section in tableSections {
       snapshot.appendItems(section.titles, toSection: section.section)
     }
 
@@ -188,4 +187,8 @@ private extension ViewController {
       completionBlock?()
     }
   }
+}
+
+private extension UISearchBar {
+  var searchText: String { self.text?.lowercased() ?? "" }
 }

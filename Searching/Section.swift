@@ -1,8 +1,9 @@
 /**
  Enumeration for all of the sections. There is one section for each letter of the English alphabet + one for those
- titles whose first character is something other than a letter.
+ titles whose first character is something other than a letter. Note that the sorting of the titles will place numbers
+ before letters, but the section order will force the titles start with numbers to appear at the end of any list.
  */
-enum Section: UInt32, CaseIterable {
+enum Section: UInt32 {
   case A = 0
   case B
   case C
