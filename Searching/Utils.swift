@@ -40,7 +40,7 @@ func sortableTitle(from title: String) -> String {
  - parameter titles: the collection of `Title` entities to partition
  - returns: the collection of `TableSection` that was generated
  */
-func partitionTitles(_ titles: [Title]) -> [TableSection] {
+func partitionTitles(_ titles: [Title]) -> [SectionTitles] {
   titles.reduce(into: [[Title]](), { partialResult, title in
 
     // Combine titles with same section into an array, then create a TableSection instance for each array and finally

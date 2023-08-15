@@ -172,17 +172,7 @@ private extension ViewController {
    - parameter completionBlock: the block to run after the table view has been updated
    */
   func updateViewContents(term: String, completionBlock: (()->())? = nil) {
-    let titles = term.isEmpty ? allTitles : (allTitles.filter { $0.matches(term.uppercased()) })
-    let tableSections = partitionTitles(titles)
-
-    var snapshot = NSDiffableDataSourceSnapshot<Section, Title>()
-    snapshot.appendSections(tableSections.map { $0.section })
-
-    for section in tableSections {
-      snapshot.appendItems(section.titles, toSection: section.section)
-    }
-
-    dataSource.apply(snapshot, animatingDifferences: true) {
+    dataSource.apply(DataSource.buildSnapshot(term: term), animatingDifferences: true) {
       self.tableView.selectRow(at: self.selectedIndexPath, animated: false, scrollPosition: .none)
       completionBlock?()
     }
