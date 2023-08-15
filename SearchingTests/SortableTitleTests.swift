@@ -10,7 +10,7 @@ final class SortableTitleTests: XCTestCase {
   }
 
   func testWithEmptyString() throws {
-    XCTAssertEqual(SortableTitle(title: "").value, "")
+    XCTAssertEqual(SortableTitle(title: "").sortable, "")
   }
 
   func testOrdering() throws {
